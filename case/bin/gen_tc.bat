@@ -1,0 +1,1 @@
+gp -q gen_tc_sect163k1.gp > tc_sect163k1.txt
