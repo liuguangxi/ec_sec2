@@ -1,8 +1,8 @@
 /*
  *==============================================================================
- * gen_tc_sect163k1.gp
+ * gen_tc_sect163r1.gp
  *
- * Generate test case for sect163k1.
+ * Generate test case for sect163r1.
  *------------------------------------------------------------------------------
  * Copyright (c) 2022 Guangxi Liu
  *
@@ -46,19 +46,19 @@ Ff2Dec(data) = {
 
 
 /*
- * Elliptic curve domain parameters of sect163k1
+ * Elliptic curve domain parameters of sect163r1
  */
-Sect163k1Param() = {
+Sect163r1Param() = {
     my(m, ffx, a, b, ec, xg, yg, g, n);
     m = 163;
     ffx = ffgen((x^163 + x^7 + x^6 + x^3 + 1)*Mod(1, 2));
-    a = Hex2Ff("000000000000000000000000000000000000000001", ffx);
-    b = Hex2Ff("000000000000000000000000000000000000000001", ffx);
+    a = Hex2Ff("07B6882CAAEFA84F9554FF8428BD88E246D2782AE2", ffx);
+    b = Hex2Ff("0713612DCDDCB40AAB946BDA29CA91F73AF958AFD9", ffx);
     ec = ellinit([ffx^0, a, 0*ffx, 0*ffx, b]);
-    xg = Hex2Ff("02FE13C0537BBC11ACAA07D793DE4E6D5E5C94EEE8", ffx);
-    yg = Hex2Ff("0289070FB05D38FF58321F2E800536D538CCDAA3D9", ffx);
+    xg = Hex2Ff("0369979697AB43897789566789567F787A7876A654", ffx);
+    yg = Hex2Ff("00435EDB42EFAFB2989D51FEFCE3C80988F41FF883", ffx);
     g = [xg, yg];
-    n = Hex2Dec("04000000000000000000020108A2E0CC0D99F8A5EF");
+    n = Hex2Dec("03FFFFFFFFFFFFFFFFFFFF48AAB689C29CA710279B");
     if (ellisoncurve(ec, g) != 1, error("Invalid parameters"));
     if (ellorder(ec, g) != n, error("Invalid parameters"));
     return([m, ffx, a, b, ec, g, n]);
@@ -85,15 +85,15 @@ PrintTc(m, ec, g, d) = {
 {
 setrand(42);
 
-P163k1 = Sect163k1Param();
+P163r1 = Sect163r1Param();
 Ncase = 1000;
 for (i = 1, 5,
-    PrintTc(P163k1[1], P163k1[5], P163k1[6], i);
-    PrintTc(P163k1[1], P163k1[5], P163k1[6], P163k1[7] - i);
+    PrintTc(P163r1[1], P163r1[5], P163r1[6], i);
+    PrintTc(P163r1[1], P163r1[5], P163r1[6], P163r1[7] - i);
 );
 for (i = 1, Ncase - 10,
-    d = random(P163k1[7] - 1) + 1;    /* [1, n-1] */
-    PrintTc(P163k1[1], P163k1[5], P163k1[6], d);
+    d = random(P163r1[7] - 1) + 1;    /* [1, n-1] */
+    PrintTc(P163r1[1], P163r1[5], P163r1[6], d);
 );
 
 quit;
