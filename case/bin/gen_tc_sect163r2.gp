@@ -80,7 +80,7 @@ PrintTc(m, ec, g, d) = {
 
 
 /*
- * Generate test case of sect163k1
+ * Generate test case of sect163r2
  */
 {
 setrand(42);

@@ -1,8 +1,8 @@
 /*
  *==============================================================================
- * gen_tc_sect163r1.gp
+ * gen_tc_sect409k1.gp
  *
- * Generate test case for sect163r1.
+ * Generate test case for sect409k1.
  *------------------------------------------------------------------------------
  * Copyright (c) 2022 Guangxi Liu
  *
@@ -46,19 +46,19 @@ Ff2Dec(data) = {
 
 
 /*
- * Elliptic curve domain parameters of sect163r1
+ * Elliptic curve domain parameters of sect409k1
  */
-Sect163r1Param() = {
+Sect409k1Param() = {
     my(m, ffx, a, b, ec, xg, yg, g, n);
-    m = 163;
-    ffx = ffgen((x^163 + x^7 + x^6 + x^3 + 1)*Mod(1, 2));
-    a = Hex2Ff("07B6882CAAEFA84F9554FF8428BD88E246D2782AE2", ffx);
-    b = Hex2Ff("0713612DCDDCB40AAB946BDA29CA91F73AF958AFD9", ffx);
+    m = 409;
+    ffx = ffgen((x^409 + x^87 + 1)*Mod(1, 2));
+    a = Hex2Ff("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", ffx);
+    b = Hex2Ff("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001", ffx);
     ec = ellinit([ffx^0, a, 0*ffx, 0*ffx, b]);
-    xg = Hex2Ff("0369979697AB43897789566789567F787A7876A654", ffx);
-    yg = Hex2Ff("00435EDB42EFAFB2989D51FEFCE3C80988F41FF883", ffx);
+    xg = Hex2Ff("0060F05F658F49C1AD3AB1890F7184210EFD0987E307C84C27ACCFB8F9F67CC2C460189EB5AAAA62EE222EB1B35540CFE9023746", ffx);
+    yg = Hex2Ff("01E369050B7C4E42ACBA1DACBF04299C3460782F918EA427E6325165E9EA10E3DA5F6C42E9C55215AA9CA27A5863EC48D8E0286B", ffx);
     g = [xg, yg];
-    n = Hex2Dec("03FFFFFFFFFFFFFFFFFFFF48AAB689C29CA710279B");
+    n = Hex2Dec("7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE5F83B2D4EA20400EC4557D5ED3E3E7CA5B4B5C83B8E01E5FCF");
     if (ellisoncurve(ec, g) != 1, error("Invalid parameters"));
     if (ellorder(ec, g) != n, error("Invalid parameters"));
     return([m, ffx, a, b, ec, g, n]);
@@ -80,20 +80,20 @@ PrintTc(m, ec, g, d) = {
 
 
 /*
- * Generate test case of sect163r1
+ * Generate test case of sect409k1
  */
 {
 setrand(42);
 
-P163r1 = Sect163r1Param();
+P409k1 = Sect409k1Param();
 Ncase = 1000;
 for (i = 1, 5,
-    PrintTc(P163r1[1], P163r1[5], P163r1[6], i);
-    PrintTc(P163r1[1], P163r1[5], P163r1[6], P163r1[7] - i);
+    PrintTc(P409k1[1], P409k1[5], P409k1[6], i);
+    PrintTc(P409k1[1], P409k1[5], P409k1[6], P409k1[7] - i);
 );
 for (i = 1, Ncase - 10,
-    d = random(P163r1[7] - 1) + 1;    /* [1, n-1] */
-    PrintTc(P163r1[1], P163r1[5], P163r1[6], d);
+    d = random(P409k1[7] - 1) + 1;    /* [1, n-1] */
+    PrintTc(P409k1[1], P409k1[5], P409k1[6], d);
 );
 
 quit;

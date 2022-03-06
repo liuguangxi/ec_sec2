@@ -1,3 +1,12 @@
 gp -q gen_tc_sect163k1.gp > tc_sect163k1.txt
 gp -q gen_tc_sect163r1.gp > tc_sect163r1.txt
 gp -q gen_tc_sect163r2.gp > tc_sect163r2.txt
+gp -q gen_tc_sect233k1.gp > tc_sect233k1.txt
+gp -q gen_tc_sect233r1.gp > tc_sect233r1.txt
+gp -q gen_tc_sect239k1.gp > tc_sect239k1.txt
+gp -q gen_tc_sect283k1.gp > tc_sect283k1.txt
+gp -q gen_tc_sect283r1.gp > tc_sect283r1.txt
+gp -q gen_tc_sect409k1.gp > tc_sect409k1.txt
+gp -q gen_tc_sect409r1.gp > tc_sect409r1.txt
+gp -q gen_tc_sect571k1.gp > tc_sect571k1.txt
+gp -q gen_tc_sect571r1.gp > tc_sect571r1.txt

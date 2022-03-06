@@ -1,8 +1,8 @@
 /*
  *==============================================================================
- * gen_tc_sect163r1.gp
+ * gen_tc_sect571k1.gp
  *
- * Generate test case for sect163r1.
+ * Generate test case for sect571k1.
  *------------------------------------------------------------------------------
  * Copyright (c) 2022 Guangxi Liu
  *
@@ -46,19 +46,19 @@ Ff2Dec(data) = {
 
 
 /*
- * Elliptic curve domain parameters of sect163r1
+ * Elliptic curve domain parameters of sect571k1
  */
-Sect163r1Param() = {
+Sect571k1Param() = {
     my(m, ffx, a, b, ec, xg, yg, g, n);
-    m = 163;
-    ffx = ffgen((x^163 + x^7 + x^6 + x^3 + 1)*Mod(1, 2));
-    a = Hex2Ff("07B6882CAAEFA84F9554FF8428BD88E246D2782AE2", ffx);
-    b = Hex2Ff("0713612DCDDCB40AAB946BDA29CA91F73AF958AFD9", ffx);
+    m = 571;
+    ffx = ffgen((x^571 + x^10 + x^5 + x^2 + 1)*Mod(1, 2));
+    a = Hex2Ff("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", ffx);
+    b = Hex2Ff("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001", ffx);
     ec = ellinit([ffx^0, a, 0*ffx, 0*ffx, b]);
-    xg = Hex2Ff("0369979697AB43897789566789567F787A7876A654", ffx);
-    yg = Hex2Ff("00435EDB42EFAFB2989D51FEFCE3C80988F41FF883", ffx);
+    xg = Hex2Ff("026EB7A859923FBC82189631F8103FE4AC9CA2970012D5D46024804801841CA44370958493B205E647DA304DB4CEB08CBBD1BA39494776FB988B47174DCA88C7E2945283A01C8972", ffx);
+    yg = Hex2Ff("0349DC807F4FBF374F4AEADE3BCA95314DD58CEC9F307A54FFC61EFC006D8A2C9D4979C0AC44AEA74FBEBBB9F772AEDCB620B01A7BA7AF1B320430C8591984F601CD4C143EF1C7A3", ffx);
     g = [xg, yg];
-    n = Hex2Dec("03FFFFFFFFFFFFFFFFFFFF48AAB689C29CA710279B");
+    n = Hex2Dec("020000000000000000000000000000000000000000000000000000000000000000000000131850E1F19A63E4B391A8DB917F4138B630D84BE5D639381E91DEB45CFE778F637C1001");
     if (ellisoncurve(ec, g) != 1, error("Invalid parameters"));
     if (ellorder(ec, g) != n, error("Invalid parameters"));
     return([m, ffx, a, b, ec, g, n]);
@@ -80,20 +80,20 @@ PrintTc(m, ec, g, d) = {
 
 
 /*
- * Generate test case of sect163r1
+ * Generate test case of sect571k1
  */
 {
 setrand(42);
 
-P163r1 = Sect163r1Param();
+P571k1 = Sect571k1Param();
 Ncase = 1000;
 for (i = 1, 5,
-    PrintTc(P163r1[1], P163r1[5], P163r1[6], i);
-    PrintTc(P163r1[1], P163r1[5], P163r1[6], P163r1[7] - i);
+    PrintTc(P571k1[1], P571k1[5], P571k1[6], i);
+    PrintTc(P571k1[1], P571k1[5], P571k1[6], P571k1[7] - i);
 );
 for (i = 1, Ncase - 10,
-    d = random(P163r1[7] - 1) + 1;    /* [1, n-1] */
-    PrintTc(P163r1[1], P163r1[5], P163r1[6], d);
+    d = random(P571k1[7] - 1) + 1;    /* [1, n-1] */
+    PrintTc(P571k1[1], P571k1[5], P571k1[6], d);
 );
 
 quit;
