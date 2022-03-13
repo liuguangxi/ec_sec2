@@ -14,6 +14,6 @@ run -all
 
 coverage exclude -src ../../tb/tb_sect283k1_pt_mul.sv
 coverage save tc_sect283k1.ucdb
-coverage report -html
+coverage report -details -html
 
 quit

@@ -139,7 +139,7 @@ task parse_tc;
     fn_rtl = {TcRtlDir, "/", testname, "_rtl.txt"};
     fp_rtl = $fopen(fn_rtl, "w");
     if (fp_rtl == 0) begin
-        $display("[ERROR]  Fail to open file %s for reading.", fn_rtl);
+        $display("[ERROR]  Fail to open file %s for writing.", fn_rtl);
         $finish;
     end
 
